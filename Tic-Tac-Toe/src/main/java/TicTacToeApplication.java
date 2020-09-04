@@ -11,9 +11,7 @@ import javafx.stage.Stage;
 
 public class TicTacToeApplication extends Application {
 
-    private Image imageBack = new Image("TicTacToeBoard.png");
-    private Image circle = new Image("Circle.png");
-    private Image cross = new Image("Cross.png");
+    private Image imageBack = new Image("TicTacToeBoardver02.png");
     private FlowPane tictactoe = new FlowPane(Orientation.HORIZONTAL);
 
     public static void main(String[] args) {
@@ -33,14 +31,15 @@ public class TicTacToeApplication extends Application {
         gridPane.setVgap(2.5);
         gridPane.setBackground(background);
 
-        ImageView img = new ImageView(circle);
+        ImageView img;
+        img = new ImageView.vievCircle();
         tictactoe.getChildren().add(img);
 
-        gridPane.add(tictactoe, 0, 0, 3, 1);
+        gridPane.add(tictactoe, 0, 0, 1, 1);
 
-        Scene scene = new Scene(gridPane, 1000, 1000, Color.BLUE);
+        Scene scene = new Scene(gridPane, 1400, 1400, Color.BLUE);
 
-        primaryStage.setTitle("Tic Tac Toe");
+        primaryStage.setTitle("Tic Tac Toe by Konrad Jamorek");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
