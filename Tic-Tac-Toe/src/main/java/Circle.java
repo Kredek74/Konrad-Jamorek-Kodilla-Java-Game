@@ -6,6 +6,6 @@ public class Circle {
     private Image circle = new Image("Circle.png");
 
     public ImageView viewCircle() {
-        return new ImageView(circle());
+        return new ImageView(circle);
     }
 }
