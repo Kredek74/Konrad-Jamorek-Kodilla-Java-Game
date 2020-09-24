@@ -3,10 +3,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 import java.util.Random;
@@ -14,13 +14,12 @@ import java.util.stream.Collectors;
 
 public class TicTacToeKonrad extends Application {
 
-    private Button [][] gameBoard;
-    private Button buttonNewGame;
-    private Label textCounter;
-    private Label textX;
-    private Label textY;
-    private final int column = 3;
-    private final int row = 3;
+    private String humanLetter = "O";
+    private String computerLetter = "X";
+    private final int columnIndex = 3;
+    private final int rowIndex = 5;
+    private Button startButton;
+    private GridPane gridPane = new GridPane();
 
     public static void main(String[] args) {
         launch(args);
@@ -29,11 +28,15 @@ public class TicTacToeKonrad extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
         BorderPane borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(10));
+        borderPane.setPadding(new Insets(50));
 
-        GridPane gridPane = new GridPane();
+        Button startButton = new Button("Start \n Game");
+        gridPane.add(startButton, columnIndex, rowIndex);
+        startButton.setId("button-new-game");
+
+        BorderPane.setAlignment(startButton, Pos.BOTTOM_CENTER);
+        borderPane.setBottom(startButton);
 
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -45,41 +48,21 @@ public class TicTacToeKonrad extends Application {
                 gridPane.add(button, column, row);
                 GridPane.setHgrow(button, Priority.ALWAYS);
                 GridPane.setVgrow(button, Priority.ALWAYS);
+                gridPane.setHgap(10);
+                gridPane.setVgap(10);
                 button.setOnAction(event->{
-                    button.setText("X");
+                    button.setText(humanLetter);
+                    button.setFont(Font.font("Arial", 72));
+                    button.setStyle("-fx-border-color: blue");
+                    Text humanText = new Text(humanLetter);
+                    humanText.setFill(Color.BLUE);
+
                     setComputerMove(gridPane);
                 });
             }
         }
 
-        textCounter = new Label("Wygrane:");
-        textCounter.setFont(new Font(20));
-        gridPane.add(textCounter, 0,9);
-
-        textX = new Label("X -> 0");
-        textX.setFont(new Font(20));
-        gridPane.add(textX, 0,10);
-
-        textY = new Label("O -> 0");
-        textY.setFont(new Font(20));
-        gridPane.add(textY, 0,11);
-
-        buttonNewGame = new Button("Nowa \n  Gra");
-        buttonNewGame.setFont(new Font(20));
-        gridPane.add(buttonNewGame, 1,10);
-        buttonNewGame.setId("button-new-game");
-        buttonNewGame.setAlignment(Pos.BOTTOM_CENTER);
-
-        buttonNewGame.setOnAction(action -> {
-            for (int columne = 0; columne<3; columne++){
-                for(int row =0; row<3; row++){
-                    gameBoard[column][row].setText("");
-                    gameBoard[column][row].setDisable(false);
-                }
-            }
-        });
-
-        Scene scene = new Scene(gridPane, 700, 700, Color.BLACK);
+        Scene scene = new Scene(gridPane, 660, 600, Color.BLACK);
 
         primaryStage.setTitle("TicTacToe by Konrad Jamorek");
         primaryStage.setScene(scene);
@@ -95,6 +78,10 @@ public class TicTacToeKonrad extends Application {
 
         Random randomButton = new Random();
         int randomNumber = randomButton.nextInt(buttons.size());
-        buttons.get(randomNumber).setText("O");
+        buttons.get(randomNumber).setText(computerLetter);
+        buttons.get(randomNumber).setFont(Font.font("Arial", 72));
+        buttons.get(randomNumber).setStyle("-fx-border-color: red");
+        Text computerText = new Text(computerLetter);
+        computerText.setFill(Color.RED);
     }
 }
